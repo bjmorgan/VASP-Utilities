@@ -1,15 +1,15 @@
 #! /usr/bin/perl -w
 
-# checkforce v0.2.1
+# checkforce v0.2.2
 # Checks for convergence of geometry optimisations in VASP
-# last updated 26/07/11 
+# last updated November 14, 2011
 # written by Benjamin J. Morgan
 
 use Getopt::Long;
 use utf8;
 use strict;
 
-my $verstring = '0.2.1';
+my $verstring = '0.2.2';
 my $verbose = '';    # option variable with default value (false)
 my $convergence = ''; # option variable with default value (false), used later to store convergence
 my $help = ''; # option variable with default value (false)
@@ -37,7 +37,7 @@ Optional arguments:
 
 Standard output:
 remainder: < sum{force on atom - force convergence} / number of atoms >
-maxiumum: < max non-converged forces >
+maximum: < max non-converged forces >
 not-opt: < number of non-converged forces > / < number of atoms >\n";
 exit 0;
 }
