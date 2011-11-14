@@ -1,0 +1,17 @@
+#! /bin/bash
+
+potcar_dir='/home/morgan/source/vasp/vasp.5.2.11.b/PBE'
+
+for potcar in $@
+do
+  if [ ! -e "$potcar_dir/$potcar" ]
+  then
+    echo "$potcar not found in $potcar_dir"
+    exit 1
+  fi
+done
+
+for potcar in $@
+do
+  cat $potcar_dir/$potcar/POTCAR
+done

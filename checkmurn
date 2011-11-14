@@ -1,0 +1,11 @@
+#! /bin/bash
+
+dirs=$( ls -d [0-9]* )
+
+for dir in ${dirs[*]}
+do
+  cd $dir
+  echo -ne "$dir : "
+  checkforce | tail -1 | awk '{ print $2 }'
+  cd ..
+done

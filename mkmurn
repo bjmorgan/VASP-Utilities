@@ -1,0 +1,47 @@
+#! /usr/bin/ruby
+
+class Datum
+
+  attr_reader :scaling, :energy
+
+  def initialize( scaling, energy )
+    @scaling = scaling
+    @energy = energy
+  end
+
+end
+
+data = []
+
+murn_dirs = Dir.entries(".").select{ |dir| ( dir =~ /\d/ ) == 0 }
+murn_dirs.each do |dir|
+  Dir.chdir( dir ) do
+
+    abort( "POSCAR not found in ./#{dir}" ) unless FileTest.exist?( "POSCAR" )
+    poscar = File.new( "POSCAR", "r" )
+    scaling = poscar.readlines[1].to_f
+    poscar.close
+
+    abort( "OUTCAR not found in ./#{dir}" ) unless FileTest.exist?( "OUTCAR" )
+    outcar = File.new( "OUTCAR", "r" )
+    energy = outcar.readlines.grep( /sigma/ )[-1].strip.split(" ")[-1].to_f
+    outcar.close
+
+    data << Datum.new( scaling, energy )
+  end
+end
+
+data.sort! { |a,b| a.scaling <=> b.scaling }
+
+data[1..-2].each_with_index do | d, i | # check data set is concave at all internal points
+  if data[i+1].energy > ( data[i].energy + data[i+2].energy ) / 2.0 then 
+    warn "Not concave at lattice points:
+          #{data[i].scaling} #{data[i].energy}
+          #{data[i+1].scaling} #{data[i+1].energy}
+          #{data[i+2].scaling} #{data[i+2].energy}" 
+  end
+end
+
+puts "2\n1 1\n#{ data[0].scaling } #{ data[-1].scaling } 20"
+puts "#{data.size}"
+data.each{ |d| puts "#{ d.scaling } #{ d.energy }" }

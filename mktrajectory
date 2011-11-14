@@ -1,0 +1,44 @@
+#! /usr/bin/perl
+
+# vasptrajectory
+# Extracts the atoms positions from a VASP OUTCAR
+
+open OUTCAR, "OUTCAR" or die "OUTCAR not found:";
+open CONTCAR, "CONTCAR" or die "CONTCAR not found:";
+
+my @outcar = <OUTCAR>;
+my @contcar = <CONTCAR>;
+
+@names = split /\s+/,@contcar[5];
+@numbers = split /\s+/,@contcar[6];
+@atoms = ();
+
+while (@numbers) {
+   $this_number = shift(@numbers);
+   $this_label = shift(@names);
+   for ( $i=0; $i < $this_number; $i++ ) {
+       # print "$this_label\n";
+       push (@atoms, $this_label);
+   }
+}
+
+$nframes = 0;
+
+while (@outcar) {
+   my @thisline = split /\s+/,shift(@outcar);
+   if ($thisline[1] =~ /POSITION/){
+       shift(@outcar);
+       @thisline = split /\s+/,shift(@outcar);
+       $frame_out = "";
+       $natoms = 0;
+       until ($thisline[1] =~ m/--/) {
+           $frame_out = "$frame_out$atoms[$natoms]  $thisline[1]  $thisline[2]  $thisline[3]\n";
+           @thisline = split /\s+/,shift(@outcar);
+           $natoms++;
+       }
+       print "$natoms\n";
+       print "$nframes\n";
+       print "$frame_out";
+       $nframes++;
+   }
+}

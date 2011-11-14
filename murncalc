@@ -1,0 +1,5 @@
+#! /bin/bash
+
+mkmurn > murn.in
+murn < murn.in > murn.out
+egrep "^alat" murn.out
