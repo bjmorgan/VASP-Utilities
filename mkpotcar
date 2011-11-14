@@ -1,12 +1,22 @@
 #! /bin/bash
 
-potcar_dir='/home/morgan/source/vasp/vasp.5.2.11.b/PBE'
+if [ -z "$POTCARDIR" ]
+then
+    echo "\$POTCARDIR is not set"
+    exit 1
+fi
+
+potcar_dir=$POTCARDIR
 
 for potcar in $@
 do
   if [ ! -e "$potcar_dir/$potcar" ]
   then
-    echo "$potcar not found in $potcar_dir"
+    echo -e "\n\"$potcar\" not found in $potcar_dir" 1>&2
+    echo -e "\nAvailable pseudopotentials:\n" 1>&2
+    lspotcar 1>&2
+    # Modify this to return useful suggestions; i.e. mkpotcar Li_foo suggests Li, Li_sv, Li_sv2, etc.
+    echo -e "" 1>&2
     exit 1
   fi
 done
