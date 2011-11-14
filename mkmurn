@@ -24,10 +24,15 @@ murn_dirs.each do |dir|
 
     abort( "OUTCAR not found in ./#{dir}" ) unless FileTest.exist?( "OUTCAR" )
     outcar = File.new( "OUTCAR", "r" )
-    energy = outcar.readlines.grep( /sigma/ )[-1].strip.split(" ")[-1].to_f
+    final_energy = outcar.readlines.grep( /sigma/ )[-1]
+    if final_energy.nil? then
+      warn("No energy found in directory ./#{dir}")
+    elsif
+      energy = final_energy.strip.split(" ")[-1].to_f
+      data << Datum.new( scaling, energy )
+    end
     outcar.close
 
-    data << Datum.new( scaling, energy )
   end
 end
 
