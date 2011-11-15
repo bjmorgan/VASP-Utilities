@@ -1,5 +1,9 @@
 #! /bin/bash
 
-mkmurn > murn.in
+errmsg=$( { mkmurn > murn.in ;} 2>&1 ) # STDERR is redirected to STDOUT before being captured in $errmsg
+if [ "$?" -ne 0 ]; then
+    echo "Error in 'mkmurn': $errmsg" >&2
+    exit 1
+fi
 murn < murn.in > murn.out
 egrep "^alat" murn.out

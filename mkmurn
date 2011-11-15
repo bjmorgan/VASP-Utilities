@@ -36,6 +36,8 @@ murn_dirs.each do |dir|
   end
 end
 
+abort("No directories found") if data.empty?
+
 data.sort! { |a,b| a.scaling <=> b.scaling }
 
 data[1..-2].each_with_index do | d, i | # check data set is concave at all internal points
