@@ -1,8 +1,8 @@
 #! /usr/bin/perl -w
 
-# checkforce v0.2.2
+# checkforce v0.2.3
 # Checks for convergence of geometry optimisations in VASP
-# last updated November 14, 2011
+# last updated 5/1/12 
 # written by Benjamin J. Morgan
 
 use Getopt::Long;
@@ -37,7 +37,7 @@ Optional arguments:
 
 Standard output:
 remainder: < sum{force on atom - force convergence} / number of atoms >
-maximum: < max non-converged forces >
+maxiumum: < max non-converged forces >
 not-opt: < number of non-converged forces > / < number of atoms >\n";
 exit 0;
 }
@@ -105,5 +105,9 @@ while (@outcar) {
 if ($verbose){
     print "$theseforces\n";
 }
-#printf "%g %g $g\n", $excessforce/$nforces, $maxforce, $noverforce;
-printf "remainder:\t%g\nmaximum:\t%g\nnot-opt:\t%g / %g\n", $excessforce/$nforces, $maxforce, $noverforce, $nforces;
+
+if (defined $nforces) { # check that at least one set of forces has been outputted
+    printf "remainder:\t%g\nmaximum:\t%g\nnot-opt:\t%g / %g\n", $excessforce/$nforces, $maxforce, $noverforce, $nforces;
+} else {
+    printf "remainder:\t#\nmaximum:\t#\nnot-opt:\t# / #\n";
+}
