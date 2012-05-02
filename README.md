@@ -7,6 +7,7 @@ Shell scripts and other code for helping with processing VASP input / output.
 Repository contents:
 
 * [checkforce] (#checkforce)
+* [checkmag] (#checkmag)
 * [checkmurn] (#checkmurn)
 * [lspotcar] (#lspotcar)
 * [mkmurn] (#mkmurn)
@@ -36,6 +37,21 @@ For options use `checkforce -h`:
     maximum: < max non-converged forces >
     not-opt: < number of non-converged forces > / < number of atoms >
     
+##checkmag
+
+Outputs magnetization data from an OUTCAR file (default is to use current directory)
+
+For options use `checkmag -g`:
+
+	Outputs ion magnetization data from a VASP OUTCAR file
+  
+	  Usage: checkmag [options] outcar_name
+
+	    -m, --mag NUM                    Set magnetization cutoff (default = 0.5)
+	    -v, --verbose                    Output all ions
+	    -s, --steps                      Output data for every step
+	    -h, --help                       Display this screen
+		
 ##checkmurn
 
 Checks convergence for calculations running for a Murnaghan equation of state fit. Each subdirectory that begins with a numeral is treated as a lattice parameter label, and [checkforce](#checkforce) is called.
