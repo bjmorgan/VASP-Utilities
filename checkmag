@@ -1,0 +1,58 @@
+#! /usr/bin/ruby
+
+require 'optparse'
+
+default_mag = 0.5
+header = 'ion            s       p       d     mag'
+  
+options = {}
+optparse = OptionParser.new do |opts|
+  executable_name = File.basename($PROGRAM_NAME)
+  opts.banner = "Outputs ion magnetization data from a VASP OUTCAR file\n  
+  Usage: #{executable_name} [options] outcar_name\n\n"
+  
+  opts.on( '-m', '--mag NUM', Float, "Set magnetization cutoff (default = #{default_mag})" ) do |mag|
+    options[:mag] = mag
+  end
+  
+  opts.on( '-v', '--verbose', 'Output all ions' ) do
+    options[:verbose] = true
+  end
+  
+  opts.on( '-s', '--steps', 'Output data for every step' ) do
+    options[:steps] = true
+  end
+  
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+end
+optparse.parse!
+
+mag = options[:mag] ||= default_mag # magnetization cutoff
+filename = ARGV[0] ||= 'OUTCAR'
+
+begin
+  outcar = File.open( filename, 'r' ).readlines
+rescue
+  abort("Could not find file \"#{filename}\"")
+end
+
+nions = outcar.grep(/NIONS =\s+([0-9]+)/){$1}[0].to_i
+line_no = []
+outcar.each_with_index{ |line, index| line_no << index+4 if line =~ /\A magnetization/ }
+abort("Could not find magnetization data in file \"#{filename}\"") if line_no.empty?
+
+line_no = [line_no[-1]] unless options[:steps]
+
+line_no.each_with_index do |this_line_no, step|
+  if options[:verbose] then
+    output = outcar[this_line_no...this_line_no+nions]
+  else
+    output = outcar[this_line_no...this_line_no+nions].collect{ |line| line if line.strip.split(/\s+/)[4].to_f.abs >= mag }.compact
+  end
+
+  puts "\n\# #{step+1}" if options[:steps]
+  puts header,'-'*header.length, output
+end
