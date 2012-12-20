@@ -41,7 +41,7 @@ For options use `checkforce -h`:
 
 Outputs magnetization data from an OUTCAR file (default is to use current directory)
 
-For options use `checkmag -g`:
+For options use `checkmag -h`:
 
 	Outputs ion magnetization data from a VASP OUTCAR file
   
