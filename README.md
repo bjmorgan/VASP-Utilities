@@ -69,7 +69,7 @@ Identifies directories that match `./[0-9]*` and uses the cell scaling in POTCAR
 ##mkpotcar
 
 Requires $POTCARDIR set as an environment variable.
-Syntax is `mkpotcar \<P1\> \<P2\> ...`, where P1 and P2 (etc.) are names of pseudo potential directories in $POTCARDIR.
+Syntax is `mkpotcar <P1> <P2> ...`, where `P1` and `P2` (etc.) are names of pseudo potential directories in $POTCARDIR.
 If any of the requested directories are not found in $POTCARDIR then [lspotcar](#lspotcar) is called to give a listing of the available pseudo potentials.
 
 ##mktrajectory
@@ -96,6 +96,6 @@ Reads input parameters from `parsedoscar.inpt`, which looks like:
     .true.              Spin polarised calculation? ( .true. / .false. )
     d                    Maximum angular momentum ( d / f )
 
-## read me
+## README.md
 
 This file.
