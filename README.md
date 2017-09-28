@@ -4,16 +4,16 @@ Shell scripts and other code for helping with processing VASP input / output.
 
 Repository contents:
 
-* [checkforce] (#checkforce)
-* [checkmag] (#checkmag)
-* [checkmurn] (#checkmurn)
-* [lspotcar] (#lspotcar)
-* [mkmurn] (#mkmurn)
-* [mkpotcar] (#mkpotcar)
-* [mktrajectory] (#mktrajectory)
-* [murncalc] (#murncalc)
-* [parseDOSCARf.f90] (#parseDOSCARf)
-* [README] (#readme)
+* [checkforce](#checkforce)
+* [checkmag](#checkmag)
+* [checkmurn](#checkmurn)
+* [get_potcar_list](#get_potcar_list)
+* [mkmurn](#mkmurn)
+* [mkpotcar](#mkpotcar)
+* [mktrajectory](#mktrajectory)
+* [murncalc](#murncalc)
+* [parseDOSCARf.f90](#parseDOSCARf)
+* [README](#readme)
 
 ## checkforce
 
@@ -53,11 +53,24 @@ Python dependencies: `pymatgen`
 
 Checks convergence for calculations running for a Murnaghan equation of state fit. Each subdirectory that begins with a numeral is treated as a lattice parameter label, and [checkforce](#checkforce) is called.
 
-## lspotcar
+## get_potcar_list.py
 
-Requires $POTCARDIR set as an environment variable.
-Acts as an alias for ls $POTCARDIR so that the environment variable is hidden.
-Required by [mkpotcar](#mkpotcar)
+Utility script for listing all VASP pseudopotential subdirectories. The root directory for the pseudopotential set should be set in the `POTCARDIR` environment variable, e.g. in your `.bashrc`
+
+```
+export POTCARDIR=the/path/to/your/pseudopotentials/PBE54
+```
+
+usage: get_potcar_list.py [-h] [-l] [-c COLUMNS]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l, --list            Print the list of pseudopotentials as a formatted
+                        list.
+  -c COLUMNS, --columns COLUMNS
+                        Set the number of columns for list output
+
+If the `-l` flag is set without `-c` to set the number of columns, the output will automatically fit to the current terminal window.
 
 ## mkmurn
 
@@ -65,9 +78,23 @@ A complete Murnaghan equation of state fitting procedure can be found at https:/
 
 ## mkpotcar
 
-Requires $POTCARDIR set as an environment variable.
-Syntax is `mkpotcar <P1> <P2> ...`, where `P1` and `P2` (etc.) are names of pseudo potential directories in $POTCARDIR.
-If any of the requested directories are not found in $POTCARDIR then [lspotcar](#lspotcar) is called to give a listing of the available pseudo potentials.
+Requires `POTCARDIR` set as an environment variable.
+Syntax is `mkpotcar <P1> <P2> ...`, where `P1` and `P2` (etc.) are names of pseudo potential directories in `POTCARDIR`.
+If any of the requested directories are not found in `POTCARDIR` then [get_potcar_list.py](#get_potcar_list) is called with the `-l` flag, to give a listing of the available pseudopotentials.
+If `get_potcar_list.py` is in your path, then you can enable tab completion for valid pseudopotential directories by adding the following to you `.bashrc.:
+```bash
+_mkpotcar()
+{
+  _potcars=$(get_potcar_list.py)
+  local cur
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -W "${_potcars}" -- ${cur}) )
+
+  return 0
+}
+complete -o nospace -F _mkpotcar mkpotcar
+```
 
 ## mktrajectory
 

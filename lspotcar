@@ -1,9 +1,0 @@
-#! /bin/bash
-
-if [ -z "$POTCARDIR" ]
-then
-    echo "\$POTCARDIR is not set"
-    exit 1
-fi
-
-ls $POTCARDIR
