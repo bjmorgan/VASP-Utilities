@@ -37,6 +37,7 @@ For options use `checkforce -h`:
     
 ## checkmag
 
+```
 usage: checkmag.py [-h] [-o OUTCAR] [-t THRESHOLD]
 
 optional arguments:
@@ -46,6 +47,7 @@ optional arguments:
   -t THRESHOLD, --threshold THRESHOLD
                         only report magnetic moments larger than this
                         threshold.
+```
 	
 Python dependencies: `pymatgen`
 	
@@ -61,6 +63,7 @@ Utility script for listing all VASP pseudopotential subdirectories. The root dir
 export POTCARDIR=the/path/to/your/pseudopotentials/PBE54
 ```
 
+```
 usage: get_potcar_list.py [-h] [-l] [-c COLUMNS]
 
 optional arguments:
@@ -69,6 +72,7 @@ optional arguments:
                         list.
   -c COLUMNS, --columns COLUMNS
                         Set the number of columns for list output
+```
 
 If the `-l` flag is set without `-c` to set the number of columns, the output will automatically fit to the current terminal window.
 
