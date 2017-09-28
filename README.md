@@ -61,7 +61,7 @@ Required by [mkpotcar](#mkpotcar)
 
 ## mkmurn
 
-Identifies directories that match `./[0-9]*` and uses the cell scaling in POTCAR, and final energy in OUTCAR from each to construct an input file for `murn`.
+A complete Murnaghan equation of state fitting procedure can be found at https://github.com/bjmorgan/vasppy/blob/master/scripts/murnfit.py (part of [`vasppy`](https://github.com/bjmorgan/vasppy)).
 
 ## mkpotcar
 
