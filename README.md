@@ -83,10 +83,18 @@ A complete Murnaghan equation of state fitting procedure can be found at https:/
 
 ## mkpotcar
 
-Requires `POTCARDIR` set as an environment variable.
-Syntax is `mkpotcar <P1> <P2> ...`, where `P1` and `P2` (etc.) are names of pseudo potential directories in `POTCARDIR`.
+Requires `POTCARDIR` set as an environment variable. e.g. in your `.bashrc` add
+
+```bash
+export POTCARDIR=the/path/to/your/pseudopotentials/PBE54
+```
+
+Syntax is `mkpotcar <P1> <P2> ...`, where `P1` and `P2` (etc.) are names of pseudopotential directories in `POTCARDIR`.
+
 If any of the requested directories are not found in `POTCARDIR` then [get_potcar_list.py](#get_potcar_list) is called with the `-l` flag, to give a listing of the available pseudopotentials.
+
 If `get_potcar_list.py` is in your path, then you can enable tab completion for valid pseudopotential directories by adding the following to your `.bashrc`:
+
 ```bash
 _mkpotcar()
 {
