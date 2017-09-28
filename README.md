@@ -79,19 +79,7 @@ Calls [mkmurn](#mkmurn) to generate a Murnaghan fit input file, pipes this to `m
 
 ## parseDOSCARf
 
-Fortran90 code to convert from DOSCAR to {s, p, d, f} projected densities of states as nxy format.
-
-Reads input parameters from `parsedoscar.inpt`, which looks like:
-
-    DOSCAR     Filename to read from
-    1600              NEDOS
-    4                    Number of atomic species (maximum is currently 5: see nmaxspec in the source code.)
-    1                    Number of atoms of species 1
-    1                    Number of atoms of species 2
-    35                  Number of atoms of species 3
-    72                  Number of atoms of species 4 ...
-    .true.              Spin polarised calculation? ( .true. / .false. )
-    d                    Maximum angular momentum ( d / f )
+`parsedoscar` is now a separate repository at https://github.com/bjmorgan/parsedoscar.
 
 ## README.md
 
