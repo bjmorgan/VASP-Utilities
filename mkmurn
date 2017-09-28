@@ -1,5 +1,7 @@
 #! /usr/bin/ruby
 
+warn "This script is deprecated. A better implementation is in the murnfit.py script in the vasppy Python package."
+
 class Datum
 
   attr_reader :scaling, :energy

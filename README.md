@@ -78,6 +78,7 @@ If the `-l` flag is set without `-c` to set the number of columns, the output wi
 
 ## mkmurn
 
+**deprecated**  
 A complete Murnaghan equation of state fitting procedure can be found at https://github.com/bjmorgan/vasppy/blob/master/scripts/murnfit.py (part of [`vasppy`](https://github.com/bjmorgan/vasppy)).
 
 ## mkpotcar
@@ -106,7 +107,8 @@ Generates a `.xyz` formatted trajectory file from the sequence of ionic position
 
 ## murncalc
 
-Calls [mkmurn](#mkmurn) to generate a Murnaghan fit input file, pipes this to `murn`, and identifies the zero pressure lattice parameter from the output.
+**deprecated**  
+A complete Murnaghan equation of state fitting procedure can be found at https://github.com/bjmorgan/vasppy/blob/master/scripts/murnfit.py (part of [`vasppy`](https://github.com/bjmorgan/vasppy)).
 
 ## parseDOSCARf
 

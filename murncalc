@@ -1,5 +1,6 @@
 #! /bin/bash
 
+echo This script is deprecated. A better implementation is in the murnfit.py script in the vasppy Python package. 1>&2
 errmsg=$( { mkmurn > murn.in ;} 2>&1 ) # STDERR is redirected to STDOUT before being captured in $errmsg
 if [ "$?" -ne 0 ]; then
     echo "Error in 'mkmurn': $errmsg" >&2
