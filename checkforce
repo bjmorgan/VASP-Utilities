@@ -5,6 +5,8 @@
 # last updated 5/1/12 
 # written by Benjamin J. Morgan
 
+# This script is deprecated. An improved version of this tool is included in the vasppy Python package.
+
 use Getopt::Long;
 use utf8;
 use strict;
